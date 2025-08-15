@@ -1,0 +1,402 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body {
+  display: block;
+  width: 100dvw;
+  height: 100dvh;
+  background: url("BackgroundIMG.png") no-repeat center center/cover;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+body::before {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  height: 30vh;
+  opacity: 0.7;
+  z-index: -9999;
+}
+
+body::after {
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  height: 30vh;
+  bottom: 0;
+  opacity: 0.7;
+  top: auto;
+  z-index: -9999;
+}
+.logo {
+	top: 10px;
+	background: url("JegueBetLogo.png")  no-repeat;
+	position: fixed;
+	width: 150px;
+	height: 60px;
+	background-size: 100% 100%;
+	z-index: 9999;
+}
+
+.botaoDiv {
+  width: 20vw;
+  height: 7vh;
+  top: 80%;
+  left: 50%;
+  position: fixed;
+}
+.botao {
+  font-size: 1.8rem;
+  padding: 10px 20px;
+  background-color: #f6b624;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  transition: 0.2s;
+}
+.botao.botaoI {
+  border-radius: 100%;
+  background-color: transparent;
+  font-weight: bold;
+  padding: 10px 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  position:fixed;
+  bottom: 10px;
+  color: white;
+}
+.botao i {
+  color:#f6b624 ;
+	font-size:2rem;
+}
+.areaRoleta {
+  z-index: 7;
+  display: flex;
+  width: 340px;
+  height: 280px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 35%;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f6b624;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2),
+            0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.areaRoleta::before {
+  content: "";
+  position: absolute;
+  background-color: #f6b624;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 20px;
+  animation: goldShimmer 3s infinite linear;
+  filter: drop-shadow(0 0 5px #FFD700);
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes goldShimmer {
+  0% {
+    filter: drop-shadow(0 0 5px #FFD700) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px #FFF176) brightness(1.3);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px #FFD700) brightness(1);
+  }
+}
+.areaRoleta::after {
+  content: "";
+  z-index: 8;
+  background: url(Jegue1.png) no-repeat center/contain;
+  position: absolute;
+  width: 400px; /* ou o tamanho que quiser */
+  height: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 68%;
+  pointer-events: none;
+}
+.divRoleta {
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
+  z-index: 5;
+  left: 50%;
+  background-color: #eee;
+  transform: translateX(-50%);
+  width: 300px;
+  border-radius: 20px;
+  height: 280px;
+  transition: all 0.8s ease;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.bloco {
+  z-index: 4;
+  transition: transform 0.5s, opacity 0.4s;
+  top: 0px;
+  will-change: transform;
+  padding-left: 45px;
+  width: 50px;
+  height: 100px;
+  color: #111;
+  font-weight: bold;
+  font-size: 4.5rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.divInfo {
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 14px ;
+  outline: 1px solid rgba(255, 255, 255, 0.28) ;
+  padding: 15px ;
+  width: 300px ;
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  font-weight: 600 ;
+  font-size: 1rem ;
+  color: #222 ;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) ;
+  transition: all 0.7s ease-in-out ;
+  user-select: text ;
+  line-height: 1.4 ;
+  display: flex ;
+  flex-direction: column ;
+  justify-content: center ;
+  align-items: center ;
+  z-index: 10000 ;
+}
+.botaoInfo {
+	all: unset;
+  background-color: #f6b624;
+  height: 30px;
+  text-align: center;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 93994;
+}
+.pInfo {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: #333;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  min-height: 100%;
+  min-width: 100%;
+  z-index: 4;
+  transition: all 0.8s ease;
+  backdrop-filter: blur(20px);
+  background-color: rgba(0,0,0,0.591);
+}
+.jegue {
+  background: url(JeguePulando.png) no-repeat center/contain;
+  z-index: 99999;
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 100%);
+  transition: transform 2s ease;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.jegue::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+}
+
+.divResultado {
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
+  width: 159px;
+  z-index: 9999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 5px;
+  left: 27%;
+  transform: translateX(-50%);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 2s ease-in-out;
+}
+
+.h1Resultado {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+  transition: all 2s ease-in-out;
+}
+.areaSaldo{
+  position: fixed;
+  right: 20px;
+  color: white;
+  top: 20px;
+  font-weight: bold;
+}
+.areaAposta {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
+  bottom: 5%;
+  left: 8%;
+  transform: translateX(-50%);
+  height: 130px;
+  justify-content: center;
+  width: 319px;
+  line-height: 50px;
+  font-size: 1.2rem;
+  position: fixed;
+  font-weight: bold;
+  display: flex;
+  z-index: 99999;
+  transition: all 0.8s ease-in-out;
+}
+.areaAposta.minimizado {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+.pAreaAposta {
+  position: absolute; 
+  align-self: center;
+  margin-top: 15px;
+  font-weight: bold;
+}
+.botaoAposta{
+  all: unset;
+  background-color: #f6b624;
+  height: 30px;
+  text-align: center;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  margin: 5px;
+  width: 80px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 93994;
+}
+.botaoAposta + .botaoAposta{
+  margin-left: 10px;
+}
+.pResultado {
+  font-size: 0.9rem;
+  color: #222;
+  margin: 0;
+  transition: all 2s ease-in-out;
+}
+@keyframes shake {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-5px, 5px); }
+  40%  { transform: translate(5px, -5px); }
+  60%  { transform: translate(-5px, 5px); }
+  80%  { transform: translate(5px, -5px); }
+  100% { transform: translate(0, 0); }
+}
+.shakeTela {
+  animation: shake 1s infinite;
+}
+@keyframes surgir {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.surgir {
+  animation: surgir 1s ease forwards;
+}
+@keyframes fadein {
+	0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+}
+.fadein {
+  animation: fadein 1s ease forwards;
+}
+@keyframes blocoSurgir {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes blocoDesaparecer {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
+.blocoSurgir {
+  animation: blocoSurgir 0.5s ease-out forwards;
+}
+
+.blocoDesaparecer {
+  animation: blocoDesaparecer 0.5s ease-in forwards;
+}
