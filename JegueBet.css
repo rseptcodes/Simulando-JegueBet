@@ -145,7 +145,7 @@ body::after {
   justify-content: center;
   align-items: center;
 }
-.bloco {
+.bloco-estilo {
   z-index: 4;
   transition: transform 0.5s, opacity 0.4s;
   top: 0px;
