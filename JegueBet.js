@@ -1,4 +1,4 @@
-
+let blocosAtivos = [];
 const game = document.getElementById("game");
 const roleta = {
   frames: 0,
