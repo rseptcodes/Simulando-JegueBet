@@ -1,4 +1,4 @@
-let blocosAtivos = [];
+
 const game = document.getElementById("game");
 const roleta = {
   frames: 0,
@@ -68,19 +68,40 @@ function criarLogo(){
 
 // funcões relacionadas a criação da area de informações 
 async function criarAreaInformacao() {
+	if (document.querySelector(".divInfo")){
+		return;
+	}
   const divInfo = document.createElement("div");
-  divInfo.classList.add("divInfo");
+  divInfo.classList.add("divInfo", "glass");
   game.appendChild(divInfo);
-  animarSurgir(divInfo);
+  animarEntradaAreaInfo(divInfo);
+  divInfo.style.pointerEvents = "none";
+  await delay(1700);
   criarTextoInfo(divInfo);
-  if (document.querySelector(".divInfo")) {
-  	divInfo.addEventListener("click",async () => {
-  	animarFadein(divInfo);
-  	await delay(500); 
-  	divInfo.innerHTML = "";
-  	divInfo?.remove();
+  criarBotaoInfo(divInfo);
+  
+  divInfo.addEventListener("click",async () => {
+  	animarSaidaAreaInfo(divInfo);
   });
-  }
+}
+async function animarEntradaAreaInfo(elemento){
+	elemento.classList.add("minimizado");
+	elemento.classList.add("entradaAreaIMinimizada");
+	await delay(1000);
+	elemento.classList.add("expandirAreaIMinimizada");
+	elemento.classList.remove("minimizado");
+	await delay(400);
+	elemento.classList.remove("minimizado");
+	await delay(900);
+  elemento.style.pointerEvents = "auto";
+}
+async function animarSaidaAreaInfo(elemento){
+	elemento.classList.add("minimizado");
+	await delay(10);
+	elemento.innerHTML = "";
+	elemento.classList.add("sumirAreaI");
+	await delay(2000);
+	elemento.remove();
 }
 function criarTextoInfo(divInfo) {
   const tInfo = document.createElement("p");
@@ -91,63 +112,77 @@ As imagens usadas foram geradas por inteligência artificial (ChatGPT) e não re
 
 Este site não incentiva ou promove jogos de azar, cassinos ou casas de apostas. O intuito é alertar e educar sobre os riscos e as práticas obscuras que podem existir nesses ambientes.
 
-Qualquer semelhança com sistemas de apostas reais é apenas para fins educacionais e não configura um convite ao jogo ou atividade comercial.`;
+Qualquer semelhança com sistemas de apostas reais é apenas para fins educacionais e não configura um convite ao jogo ou atividade comercial.
+
+Desenvolvido por @I.rsept`;
   divInfo.appendChild(tInfo);
-  criarBotaoInfo(divInfo);
+  animarSurgir(tInfo);
 }
 function criarBotaoInfo(divInfo){
 	const botaoinfo = document.createElement("button");
 	botaoinfo.classList.add("botaoInfo");
 	botaoinfo.innerHTML = "Saldo = 1000";
-	botaoinfo.addEventListener("click", () => {
+	botaoinfo.addEventListener("click",async () => {
+		botaoinfo.classList.add("hover");
+    await delay(500);
+    botaoinfo.classList.remove("hover");
 		localStorage.clear();
 		location.reload();
 	});
 	divInfo.appendChild(botaoinfo);
+	animarSurgir(botaoinfo);
 }
 
 // funcões relacionadas ao gerenciamento do valor da aposta
 async function gerenciarAreaAposta(){
+	if (document.querySelector(".areaAposta")){
+		return;
+	}
   gerenciadorDeSaldo.areaAposta = document.createElement("div");
-  gerenciadorDeSaldo.areaAposta.classList.add("areaAposta");
+  gerenciadorDeSaldo.areaAposta.classList.add("areaAposta", "glass");
   game.appendChild(gerenciadorDeSaldo.areaAposta);
   gerenciadorDeSaldo.pAreaAposta = document.createElement("p");
   gerenciadorDeSaldo.pAreaAposta.classList.add("pAreaAposta");
   gerenciadorDeSaldo.areaAposta.appendChild(gerenciadorDeSaldo.pAreaAposta);
-  animarEntradadaAreaAposta(gerenciadorDeSaldo.areaAposta);
+  animarEntradaAreaAposta(gerenciadorDeSaldo.areaAposta);
   removerAreaSaldo();
+  gerenciadorDeSaldo.areaAposta.style.pointerEvents = "none";
   await delay(1000); 
     gerenciadorDeSaldo.atualizarSaldo(gerenciadorDeSaldo.saldoAtual, gerenciadorDeSaldo.pAreaAposta);
     criarBotoesDeAposta(gerenciadorDeSaldo.areaAposta);
+    gerenciadorDeSaldo.areaAposta.addEventListener("click", () => {
+    	document.querySelectorAll(".botaoAposta").forEach((ele) => {
+  ele.style.pointerEvents = "none";
+  animarFadein(ele);
+});
+  animarFadein(gerenciadorDeSaldo.pAreaAposta);
+  animarSaidaAreaAposta(gerenciadorDeSaldo.areaAposta);
+    });
 }
-async function animarEntradadaAreaAposta(a) {
+async function animarEntradaAreaAposta(a) {
 	animarSurgir(a);
   a.classList.add("minimizado");
   a.style.transform = "translateY(350)";
-  a.offsetHeight;
   await delay(150);
   a.style.transform = "translateY(-30%)";
   a.offsetHeight;
   await delay(200);
   a.style.transform = "translateY(0%)";
-  a.offsetHeight;
   await delay(150);
-
   a.classList.remove("minimizado");
+  await delay(900);
+  a.style.pointerEvents = "auto";
 }
 
-async function animarSaidadaAreaAposta(a) {
+async function animarSaidaAreaAposta(a) {
   a.style.transform = "translateY(0%)";
-  a.offsetHeight;
   await delay(150);
   a.style.transform = "translateY(-30%)";
-  a.offsetHeight;
   await delay(200);
   a.style.transform = "translateY(150%)";
   a.offsetHeight;
   await delay(300);
   a.classList.add("minimizado");
-  a.offsetHeight;
   await delay(300);
   a.innerHTML = "";
   a.remove();
@@ -158,12 +193,12 @@ function criarBotaoDeAposta(valor, a){
   a.appendChild(botaoAposta);
   botaoAposta.innerText = valor;
   animarSurgir(botaoAposta);
-  botaoAposta.addEventListener("click", () => {
+  botaoAposta.addEventListener("click", async () => {
     let novoValor = gerenciadorDeSaldo.saldoAtual - valor;
     gerenciadorDeSaldo.valorApostado = valor;
     gerenciadorDeSaldo.atualizarSaldo(novoValor, gerenciadorDeSaldo.pAreaAposta);
     animarFadein(gerenciadorDeSaldo.pAreaAposta);
-    animarSaidadaAreaAposta(gerenciadorDeSaldo.areaAposta);
+    animarSaidaAreaAposta(gerenciadorDeSaldo.areaAposta);
     iniciarRoleta();
     document.querySelectorAll(".botaoAposta").forEach((ele) => {
   ele.style.pointerEvents = "none";
@@ -190,7 +225,6 @@ aplicarEstiloBloco(bloco, index);
   bloco.style.transform = "translateY(-40%)";
   bloco.style.opacity = "0";
   setTimeout(() =>{
-    bloco.style.transform = "translateY(0))";
     bloco.style.opacity = "1";
   }, 10);
 }
@@ -321,7 +355,7 @@ function iniciarRoleta() {
 }
 function animarRoleta(){
   const NUMERO_DE_FRAMES = 15;
-  const LIMITE_DA_BORDA = 191;
+  const LIMITE_DA_BORDA = 190;
   const LIMITE_DE_BLOCOS = 9;
   if (!roleta.podeRodar) return;
   roleta.rodando = true;
@@ -334,7 +368,7 @@ function animarRoleta(){
     novaPosY = posY + roleta.velocidade;
     bloco.style.top = novaPosY + "px";
   });
-  while (blocosAtivos.length > 0 && blocosAtivos[0].offsetTop >= LIMITE_DA_BORDA) {
+  while (blocosAtivos.length > 0 && blocosAtivos[0].offsetTop >= LIMITE_DA_BORDA && !roleta.podeParar) {
     apagarBloco();
   }
   let blocosAtivoslength = blocosAtivos.length;
@@ -356,7 +390,7 @@ function animarRoleta(){
     roleta.frames = 0;
   }
 
-  if (roleta.podeParar && blocosAtivos[0].offsetTop < LIMITE_DA_BORDA && blocosAtivos[0].offsetTop > 188){
+  if (roleta.podeParar && blocosAtivos[0].offsetTop > 200){
     roleta.velocidade = 0;
     roleta.rodando = false;
     limparFocusRoleta();
@@ -370,7 +404,7 @@ function animarRoleta(){
 // funcões relacionadas ao resultado
 function criarElementosdoResultado(){
   const divResultado = document.createElement("div");
-  divResultado.classList.add("divResultado");
+  divResultado.classList.add("divResultado", "glass");
   game.appendChild(divResultado);
   const h1Resultado = document.createElement("h1");
   h1Resultado.classList.add("h1Resultado");
@@ -385,7 +419,7 @@ function setarResultado(resultado){
   if (resultado === "ganhou"){
     h1Resultado.innerText = "Você ganhou!";
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
-    pResultado.style.color = "#097f47";
+    pResultado.style.color = "lightgreen";
   } else if (resultado === "perdeu"){
     h1Resultado.innerText = "Você perdeu!";
     document.body.classList.add("shakeTela");
@@ -398,13 +432,13 @@ function setarResultado(resultado){
   animarResultado(divResultado);
 }
 async function animarResultado(div){
-  div.style.transform = "translateY(-500%) scale(0.4)";
-  await delay(500);
-    div.style.transform = "translateY(10%) scale(1.2)";
-      await delay(4000);
-      div.style.transform = "translateY(-500%) scale(0.4)";
-      await delay(5000);
-        div?.remove();
+  div.classList.add("animarNotfyEntrada")
+  await delay(4000);
+  div.classList.remove("animarNotfyEntrada")
+  void div.offsetWidth;
+  div.classList.add("animarNotfySaida");
+  await delay(5000);
+  div?.remove();
   
 }
 function mostrarResultado(rigged){
@@ -430,7 +464,7 @@ function calcularResultado(resultado){
 }
 
 // funcões relacionadas a criação de botões
-function criarBotao(tipo, texto, funcao) {
+async function criarBotao(tipo, texto, funcao) {
   const botao = document.createElement("button");
   botao.classList.add("botao");
 
@@ -449,12 +483,11 @@ function criarBotao(tipo, texto, funcao) {
     animarSurgir(botaoDiv);
   }
 
-  botao.addEventListener("click", () => {
+  botao.addEventListener("click",async () => {
     funcao();
-    botao.style.pointerEvents = "none";
-    setTimeout(() => {
-      botao.style.pointerEvents = "auto";
-    }, 2000);
+    botao.classList.add("hover");
+    await delay(100);
+    botao.classList.remove("hover");
   });
 }
 
@@ -492,4 +525,4 @@ async function criarParticulaNumero(sinal, numero, cor, local){
  animarFadein(numeroParticula);
  await delay(500); 
  numeroParticula?.remove();
-}
+  }
