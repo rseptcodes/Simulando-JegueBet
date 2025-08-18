@@ -2,6 +2,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 body {
   display: block;
@@ -61,22 +62,28 @@ body::after {
   border-radius: 20px;
   color: white;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0);
   font-weight: bold;
-  transition: 0.2s;
+  transition: all 0.2s ease;
+}
+.hover {
+	background-color: #ffde92;
+}
+.botaoI.hover i {
+	background-color: transparent;
+	color: #facb61;
 }
 .botao.botaoI {
+	box-sizing: border-box;
   border-radius: 100%;
   background-color: transparent;
   font-weight: bold;
   padding: 10px 16px;
   left: 50%;
+  transform-origin: center center;
   transform: translateX(-50%);
   position:fixed;
   bottom: 10px;
-  color: white;
-}
-.botao i {
   color:#f6b624 ;
 	font-size:2rem;
 }
@@ -144,10 +151,11 @@ body::after {
   position: relative;
   justify-content: center;
   align-items: center;
+  font-family: 'Space mono', Monospace;
 }
 .bloco-estilo {
   z-index: 4;
-  transition: transform 0.5s, opacity 0.4s;
+  transition: transform 0.5s, opacity 0.6s;
   top: 0px;
   will-change: transform;
   padding-left: 45px;
@@ -162,35 +170,45 @@ body::after {
   justify-content: center;
   text-align: center;
 }
-.divInfo {
-  background: rgba(255,255,255,0.3);
+.glass {
+	background: rgba(255,255,255,0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 14px ;
   outline: 1px solid rgba(255, 255, 255, 0.28) ;
+  border-radius: 16px;
+}
+.divInfo {
   padding: 15px ;
-  width: 300px ;
+  width: 310px;
+  height: 550px;
   position: fixed;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  top: 50% ;
+  left: 50% ;
+  transform-origin: center center;
   font-weight: 600 ;
-  font-size: 1rem ;
+  font-size: 0.9rem ;
   color: #222 ;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) ;
-  transition: all 0.7s ease-in-out ;
+  transition: all 1s ease-in-out ;
   user-select: text ;
-  line-height: 1.4 ;
-  display: flex ;
+  line-height: 1.3;
+  display: flex;
   flex-direction: column ;
   justify-content: center ;
   align-items: center ;
   z-index: 10000 ;
+  text-align: justify;
+}
+.divInfo.minimizado{
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
 }
 .botaoInfo {
 	all: unset;
   background-color: #f6b624;
   height: 30px;
+  color: white;
   text-align: center;
   line-height: 1.2rem;
   font-size: 1.2rem;
@@ -238,11 +256,6 @@ body::after {
 }
 
 .divResultado {
-  background: rgba(255,255,255,0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
-  outline: 1px solid rgba(255, 255, 255, 0.3);
   width: 159px;
   z-index: 9999;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
@@ -273,11 +286,6 @@ body::after {
   font-weight: bold;
 }
 .areaAposta {
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 16px;
-  outline: 1px solid rgba(255, 255, 255, 0.3);
   bottom: 5%;
   left: 8%;
   transform: translateX(-50%);
@@ -363,40 +371,68 @@ body::after {
 .fadein {
   animation: fadein 1s ease forwards;
 }
-@keyframes blocoSurgir {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+
+@keyframes entradaMinimizada{
+	0% {
+		transform:scale(0.1) translateY(1000%) rotate(90deg);
+		opacity: 0;
+	}
+	50% {
+		transform:scale(0.1) translate(-50%, -50%) rotate(90deg);
+	}
+	60% {
+		transform:scale(0.2) translate(-50%, -50%) rotate(90deg);
+	}
+	100% {
+		transform: scale(0.2) translateY(0%) rotate(-90deg);
+		opacity: 1;
+	}
 }
 
-@keyframes blocoDesaparecer {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.2);
-    opacity: 0;
-  }
+.entradaAreaIMinimizada {
+	animation: entradaMinimizada 0.7s ease forwards;
+}
+@keyframes expandirAreaI{
+	from {
+	transform:scale(0.2) translate(-50%, -50%);
+	}
+	to {
+	transform:scale(1) translate(-50%, -50%);
+	}
+}
+.expandirAreaIMinimizada {
+	animation: expandirAreaI 2s ease forwards;
+}
+@keyframes sumirAreaIMinimizada {
+	0%{
+		opacity:1;
+		transform:scale(1) translate(-50%, -50%);
+	}
+	50%{
+		opacity: 1;
+		transform:scale(0.1) translate(0, 0);
+	}
+	100% {
+		opacity: 0;
+		transform:scale(0.1) translate(50%, 50%);
+	}
+}
+.sumirAreaI {
+	animation: sumirAreaIMinimizada 2s ease forwards;
 }
 
-.blocoSurgir {
-  animation: blocoSurgir 0.5s ease-out forwards;
+@keyframes animarNotfy {
+	from {
+		transform: translateY(-500%) scale(0.4);
+	}
+	to {
+		transform: translateY(10%) scale(1.2);
+	}
 }
-
-.blocoDesaparecer {
-  animation: blocoDesaparecer 0.5s ease-in forwards;
+.animarNotfyEntrada {
+	animation: animarNotfy 2s ease forwards;
+}
+.animarNotfySaida {
+	animation: animarNotfy 2s ease forwards;
+	animation-direction: reverse;
 }
