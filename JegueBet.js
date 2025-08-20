@@ -1,3 +1,4 @@
+
 let blocosAtivos = [];
 const game = document.getElementById("game");
 const roleta = {
@@ -414,18 +415,17 @@ function criarElementosdoResultado(){
   divResultado.appendChild(pResultado);
   return { divResultado, h1Resultado, pResultado };
 }
-function setarResultado(resultado){
+async function setarResultado(resultado){
   const { divResultado, h1Resultado, pResultado } = criarElementosdoResultado();
   if (resultado === "ganhou"){
     h1Resultado.innerText = "Você ganhou!";
+    mostrarVinheta("rgba(0,255,0,0.5)");
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
     pResultado.style.color = "lightgreen";
   } else if (resultado === "perdeu"){
     h1Resultado.innerText = "Você perdeu!";
-    document.body.classList.add("shakeTela");
-    setTimeout(() => {
-      document.body.classList.remove("shakeTela");
-    }, 1000);
+    mostrarVinheta("rgba(255,0,0,0.5)");
+    
     pResultado.innerText = "-" + gerenciadorDeSaldo.valorApostado;
     pResultado.style.color = "#c50f0f";
   }
@@ -445,15 +445,16 @@ function mostrarResultado(rigged){
   if (rigged) {
     setarResultado("perdeu");
     calcularResultado("perdeu");
+    
   }else if (!rigged){
     setarResultado("ganhou");
     calcularResultado("ganhou");
+    criarVariasMoedas(20);
   }
   criarAreaSaldo();
 }
 function calcularResultado(resultado){
 	if (resultado === "perdeu"){
-		gerenciadorDeSaldo.saldoAtual -= gerenciadorDeSaldo.valorApostado;
 		criarParticulaNumero("negativo", gerenciadorDeSaldo.valorApostado, "red", "areaSaldo")
 	} else if (resultado === "ganhou"){
 		gerenciadorDeSaldo.saldoAtual += gerenciadorDeSaldo.valorApostado * 2;
@@ -491,7 +492,7 @@ async function criarBotao(tipo, texto, funcao) {
   });
 }
 
-// funcao relacionada a animação
+// funcao relacionada a animação e UX
 async function animarSurgir(elemento){
 	elemento.classList.add("surgir");
   await delay(1500);
@@ -525,4 +526,44 @@ async function criarParticulaNumero(sinal, numero, cor, local){
  animarFadein(numeroParticula);
  await delay(500); 
  numeroParticula?.remove();
+}
+function mostrarVinheta(cor = "rgba(255,0,0,0.5)") {
+  const vinheta = document.createElement("div");
+  vinheta.classList.add("vinheta");
+  vinheta.style.background = `radial-gradient(circle, rgba(0,0,0,0) 70%, ${cor} 100%)`;
+
+  document.body.appendChild(vinheta);
+
+  setTimeout(() => vinheta.remove(), 1000);
+}
+function criarMoeda(index) {
+  const moeda = document.createElement("div");
+  moeda.style.left = Math.random() * window.innerWidth + "px";
+  moeda.classList.add("moedas");
+  moeda.dataset.index = index;
+  game.appendChild(moeda);
+  return moeda;
+}
+async function criarVariasMoedas(quantidade) {
+  for (let i = 0; i < quantidade; i++) {
+    let moeda = criarMoeda(i);
+    animarMoeda(moeda);
+    if (i > 0) await delay(150);
   }
+}
+function animarMoeda(elemento) {
+  let posY = -30;
+
+  function cair() {
+    posY += 5;
+    elemento.style.transform = `translateY(${posY}px)`;
+
+    if (posY > window.innerHeight + elemento.offsetHeight) {
+      elemento.remove();
+    } else {
+      requestAnimationFrame(cair);
+    }
+  }
+
+  requestAnimationFrame(cair);
+}
