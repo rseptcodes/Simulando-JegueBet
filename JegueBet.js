@@ -1,4 +1,3 @@
-
 let blocosAtivos = [];
 const game = document.getElementById("game");
 const roleta = {
@@ -12,7 +11,7 @@ const roleta = {
   areaRoleta: null,
   divRoleta: null,
   velocidade: 7,
-  falsaEsperança: 50,
+  falsaEsperança: 0,
   numeroAtual: null,
   ultimoNumero: null,
   rigged: null,
@@ -420,6 +419,7 @@ async function setarResultado(resultado){
   if (resultado === "ganhou"){
     h1Resultado.innerText = "Você ganhou!";
     mostrarVinheta("rgba(0,255,0,0.5)");
+    criarVariasMoedas(20);
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
     pResultado.style.color = "lightgreen";
   } else if (resultado === "perdeu"){
@@ -449,7 +449,6 @@ function mostrarResultado(rigged){
   }else if (!rigged){
     setarResultado("ganhou");
     calcularResultado("ganhou");
-    criarVariasMoedas(20);
   }
   criarAreaSaldo();
 }
@@ -556,7 +555,9 @@ function animarMoeda(elemento) {
 
   function cair() {
     posY += 5;
-    elemento.style.transform = `translateY(${posY}px)`;
+    //elemento.style.transform = `translateY(${posY}px)`;
+    elemento.style.top = posY + "px";
+    //mudar para transform depois
 
     if (posY > window.innerHeight + elemento.offsetHeight) {
       elemento.remove();
@@ -565,5 +566,5 @@ function animarMoeda(elemento) {
     }
   }
 
-  requestAnimationFrame(cair);
+  requestAnimationFrame(cair)
 }
