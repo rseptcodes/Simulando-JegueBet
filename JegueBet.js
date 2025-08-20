@@ -552,6 +552,7 @@ async function criarVariasMoedas(quantidade) {
 }
 function animarMoeda(elemento) {
   let posY = -30;
+ 
 
   function cair() {
     posY += 5;
