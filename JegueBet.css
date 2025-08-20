@@ -439,7 +439,6 @@ body::after {
 .moedas {
 	position: fixed;
 	z-index: 99999999;
-	top: 0;
 	background: url("moedaJegueBet.png");
 	background-size: contain;
 	width: 30px;
