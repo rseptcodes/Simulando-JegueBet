@@ -1,3 +1,4 @@
+// alterar os verdes dos resultados positivos
 let blocosAtivos = [];
 const game = document.getElementById("game");
 const roleta = {
@@ -419,7 +420,6 @@ async function setarResultado(resultado){
   if (resultado === "ganhou"){
     h1Resultado.innerText = "Você ganhou!";
     mostrarVinheta("rgba(0,255,0,0.5)");
-    criarVariasMoedas(20);
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
     pResultado.style.color = "lightgreen";
   } else if (resultado === "perdeu"){
@@ -449,6 +449,7 @@ function mostrarResultado(rigged){
   }else if (!rigged){
     setarResultado("ganhou");
     calcularResultado("ganhou");
+    criarVariasMoedas(20);
   }
   criarAreaSaldo();
 }
