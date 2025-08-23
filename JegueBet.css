@@ -153,6 +153,19 @@ body::after {
   align-items: center;
   font-family: 'Space mono', Monospace;
 }
+.roletaTexto {
+  position: absolute;
+  font-weight: bold;
+  font-size: 5rem;
+  color: #333;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.roletaTextoGlow {
+  color: #f6b624;
+  /** text-shadow: 0 0 8px #f80b0b, 0 0 12px #f80b0b, 0 0 20px #f80b0b; **/
+}
 .bloco-estilo {
   z-index: 4;
   transition: transform 0.5s, opacity 0.6s;
@@ -174,7 +187,7 @@ body::after {
 	background: rgba(255,255,255,0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  outline: 1px solid rgba(255, 255, 255, 0.28) ;
+  outline: 1px solid rgba(255, 255, 255, 0.50) ;
   border-radius: 16px;
 }
 .divInfo {
@@ -289,7 +302,7 @@ body::after {
   bottom: 5%;
   left: 8%;
   transform: translateX(-50%);
-  height: 130px;
+  height: 110px;
   justify-content: center;
   width: 319px;
   line-height: 50px;
@@ -308,7 +321,8 @@ body::after {
 .pAreaAposta {
   position: absolute; 
   align-self: center;
-  margin-top: 15px;
+  margin-top: 55px;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 .botaoAposta{
