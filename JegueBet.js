@@ -17,6 +17,24 @@ const roleta = {
   rigged: null,
   overlay: null,
 };
+const gerenciadorDeSom = {
+	plin: new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c10478a01.mp3?filename=plinkingsndsfreesound_community-109412.mp3'),
+	unlocked: false,
+	init() {
+    this.plin.preload = 'auto';
+    this.plin.volume = 0.6;
+  },
+  unlockOnce() {
+    if (this.unlocked) return;
+    this.plin.currentTime = 0;
+    this.plin.play().catch(()=>{});
+    this.unlocked = true;
+  },
+  playPlin() {
+    this.plin.currentTime = 0;
+    this.plin.play().catch(()=>{});
+  }
+};
 const gerenciadorDeSaldo = {
   saldoAtual: parseInt(localStorage.getItem("saldo")) || 1000,
   valorApostado: null,
@@ -32,6 +50,7 @@ const gerenciadorDeSaldo = {
 
 // funcões relacionadas a criação do hud
 criarHud();
+gerenciadorDeSom.init();
 function criarHud(){
 	criarLogo();
   criarAreaRoleta();
@@ -371,6 +390,7 @@ function animarRoleta(){
   });
   while (blocosAtivos.length > 0 && blocosAtivos[0].offsetTop >= LIMITE_DA_BORDA && !roleta.podeParar) {
     apagarBloco();
+    gerenciadorDeSom.playPlin();
   }
   let blocosAtivoslength = blocosAtivos.length;
   if (roleta.frames > NUMERO_DE_FRAMES && blocosAtivos.length < LIMITE_DE_BLOCOS){
@@ -486,6 +506,7 @@ async function criarBotao(tipo, texto, funcao) {
 
   botao.addEventListener("click",async () => {
     funcao();
+    gerenciadorDeSom.unlockOnce();
     botao.classList.add("hover");
     await delay(100);
     botao.classList.remove("hover");
