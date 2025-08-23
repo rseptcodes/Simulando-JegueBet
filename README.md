@@ -19,7 +19,8 @@ Além disso, busca-se **alertar sobre o vício e os riscos das apostas online**,
 - **HTML5:** estrutura da página e elementos interativos.  
 - **CSS3:** estilos visuais, animações, efeitos de profundidade e brilho.  
 - **JavaScript:** lógica da roleta, manipulação de apostas e feedback instantâneo.  
-- **Imagens geradas por IA:** elementos visuais como fundos, logo e personagens.  
+- **Imagens geradas por IA:** elementos visuais como fundos, logo e personagens. 
+- **Áudios do Mixkit:** efeitos sonoros que acompanham as interações. 
 
 O projeto combina esses recursos para criar uma **experiência visual atrativa e educativa**, simulando uma plataforma de apostas real, mas de forma segura.  
 
