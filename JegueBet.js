@@ -11,30 +11,50 @@ const roleta = {
   areaRoleta: null,
   divRoleta: null,
   velocidade: 7,
-  falsaEsperança: 0,
+  falsaEsperança: 50,
   numeroAtual: null,
   ultimoNumero: null,
   rigged: null,
   overlay: null,
 };
 const gerenciadorDeSom = {
-	plin: new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c10478a01.mp3?filename=plinkingsndsfreesound_community-109412.mp3'),
-	unlocked: false,
-	init() {
-    this.plin.preload = 'auto';
-    this.plin.volume = 0.6;
-  },
-  unlockOnce() {
-    if (this.unlocked) return;
-    this.plin.currentTime = 0;
-    this.plin.play().catch(()=>{});
-    this.unlocked = true;
-  },
-  playPlin() {
-    this.plin.currentTime = 0;
-    this.plin.play().catch(()=>{});
-  }
+    plin: new Audio('Spin.wav'),
+    win: new Audio('Win.wav'),
+    unlocked: false,
+    init() {
+        this.plin.preload = 'auto';
+        this.plin.volume = 0.6;
+        this.win.preload = 'auto';
+        this.win.volume = 0.6;
+    },
+    async unlockOnce() {
+        if (this.unlocked) return;
+        this.plin.currentTime = 0;
+        await this.plin.play();
+        this.win.currentTime = 0;
+        await this.win.play();
+        this.unlocked = true;
+    },
+    async playPlin() {
+        this.plin.currentTime = 0;
+        await this.plin.play();
+    },
+    async playWin() {
+        this.win.currentTime = 0;
+        await this.win.play();
+    },
+    
+    async testSound(audioName, testVolume = 0.1) {
+        const audio = this[audioName];
+        audio.volume = testVolume;
+        audio.currentTime = 0;
+        await audio.play();
+        setTimeout(() => {
+            audio.volume = 0.6;
+        }, 3000); 
+    }
 };
+
 const gerenciadorDeSaldo = {
   saldoAtual: parseInt(localStorage.getItem("saldo")) || 1000,
   valorApostado: null,
@@ -439,6 +459,7 @@ async function setarResultado(resultado){
   const { divResultado, h1Resultado, pResultado } = criarElementosdoResultado();
   if (resultado === "ganhou"){
     h1Resultado.innerText = "Você ganhou!";
+    gerenciadorDeSom.playWin();
     mostrarVinheta("rgba(0,255,0,0.5)");
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
     pResultado.style.color = "#49e57dff";
@@ -506,7 +527,8 @@ async function criarBotao(tipo, texto, funcao) {
 
   botao.addEventListener("click",async () => {
     funcao();
-    gerenciadorDeSom.unlockOnce();
+    gerenciadorDeSom.testSound('plin', testVolume = 0.0001);
+    gerenciadorDeSom.testSound('win', testVolume = 0.0001);
     botao.classList.add("hover");
     await delay(100);
     botao.classList.remove("hover");
@@ -583,10 +605,7 @@ function animarMoeda(elemento) {
   let posY = -30;
   function cair() {
     posY += 5;
-    //elemento.style.transform = `translateY(${posY}px)`;
     elemento.style.top = posY + "px";
-    //mudar para transform depois
-
     if (posY > window.innerHeight + elemento.offsetHeight) {
       elemento.remove();
     } else {
