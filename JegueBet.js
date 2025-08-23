@@ -361,7 +361,7 @@ function animarRoleta(){
   if (!roleta.podeRodar) return;
   roleta.rodando = true;
   roleta.frames ++;
-  if (roleta.estaParando) roleta.velocidade = roleta.velocidade - 0.005;
+  if (roleta.estaParando) roleta.velocidade = roleta.velocidade - 0.007;
   let posY;
   let novaPosY;
   blocosAtivos.forEach (bloco => {
@@ -374,16 +374,16 @@ function animarRoleta(){
   }
   let blocosAtivoslength = blocosAtivos.length;
   if (roleta.frames > NUMERO_DE_FRAMES && blocosAtivos.length < LIMITE_DE_BLOCOS){
-    if (roleta.quantidadeDeBlocos <= 56){
+    if (roleta.quantidadeDeBlocos <= 42){
       criarColunaAleatoria();
       roleta.quantidadeDeBlocos++
-    } else if (roleta.quantidadeDeBlocos === 57){
+    } else if (roleta.quantidadeDeBlocos === 43){
       criarColunaAleatoria();
       roleta.quantidadeDeBlocos++
-    } else if (roleta.quantidadeDeBlocos === 58){
+    } else if (roleta.quantidadeDeBlocos === 44){
       gerenciarResultado();
       roleta.quantidadeDeBlocos++
-    } else if (roleta.quantidadeDeBlocos === 59){
+    } else if (roleta.quantidadeDeBlocos === 45){
       criarColunaAleatoria();
       roleta.quantidadeDeBlocos++
       roleta.podeParar = true;
