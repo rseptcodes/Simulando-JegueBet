@@ -1,4 +1,3 @@
-// alterar os verdes dos resultados positivos
 let blocosAtivos = [];
 const game = document.getElementById("game");
 const roleta = {
@@ -39,6 +38,7 @@ function criarHud(){
   criarAreaSaldo();
   criarBotao("botaoPlay", "JOGAR", gerenciarAreaAposta);
   criarBotao("botaoI","", criarAreaInformacao);
+  roleta.glowController = startGlow(3, 800);
 }
 function criarAreaRoleta(){
   roleta.areaRoleta = document.createElement("div");
@@ -174,7 +174,6 @@ async function animarEntradaAreaAposta(a) {
   await delay(900);
   a.style.pointerEvents = "auto";
 }
-
 async function animarSaidaAreaAposta(a) {
   a.style.transform = "translateY(0%)";
   await delay(150);
@@ -201,6 +200,7 @@ function criarBotaoDeAposta(valor, a){
     animarFadein(gerenciadorDeSaldo.pAreaAposta);
     animarSaidaAreaAposta(gerenciadorDeSaldo.areaAposta);
     iniciarRoleta();
+    roleta.glowController.abort();
     document.querySelectorAll(".botaoAposta").forEach((ele) => {
   ele.style.pointerEvents = "none";
   animarFadein(ele);
@@ -421,7 +421,7 @@ async function setarResultado(resultado){
     h1Resultado.innerText = "Você ganhou!";
     mostrarVinheta("rgba(0,255,0,0.5)");
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
-    pResultado.style.color = "lightgreen";
+    pResultado.style.color = "#49e57dff";
   } else if (resultado === "perdeu"){
     h1Resultado.innerText = "Você perdeu!";
     mostrarVinheta("rgba(255,0,0,0.5)");
@@ -449,7 +449,6 @@ function mostrarResultado(rigged){
   }else if (!rigged){
     setarResultado("ganhou");
     calcularResultado("ganhou");
-    criarVariasMoedas(20);
   }
   criarAreaSaldo();
 }
@@ -458,7 +457,8 @@ function calcularResultado(resultado){
 		criarParticulaNumero("negativo", gerenciadorDeSaldo.valorApostado, "red", "areaSaldo")
 	} else if (resultado === "ganhou"){
 		gerenciadorDeSaldo.saldoAtual += gerenciadorDeSaldo.valorApostado * 2;
-		criarParticulaNumero("positivo", gerenciadorDeSaldo.valorApostado * 2, "lightgreen", "areaSaldo")
+		criarParticulaNumero("positivo", gerenciadorDeSaldo.valorApostado * 2, "#49e57dff", "areaSaldo")
+		variarCriarMoedas();
 	}
 	gerenciadorDeSaldo.atualizarSaldo(gerenciadorDeSaldo.saldoAtual, gerenciadorDeSaldo.areaSaldo);
 		gerenciadorDeSaldo.atualizarSaldo(gerenciadorDeSaldo.saldoAtual, gerenciadorDeSaldo.pAreaAposta);
@@ -493,6 +493,10 @@ async function criarBotao(tipo, texto, funcao) {
 }
 
 // funcao relacionada a animação e UX
+function delay(ms){
+	return new Promise(resolve =>
+	setTimeout(resolve, ms));
+}
 async function animarSurgir(elemento){
 	elemento.classList.add("surgir");
   await delay(1500);
@@ -502,14 +506,6 @@ async function animarFadein(elemento){
 	elemento.classList.add("fadein");
 	await delay(1500);
   elemento.classList.remove("fadein");
-}
-function mesclarSurgireFadein(elemento){
-	animarSurgir(elemento);
-	animarFadein(elemento);
-}
-function delay(ms){
-	return new Promise(resolve =>
-	setTimeout(resolve, ms));
 }
 async function criarParticulaNumero(sinal, numero, cor, local){
 	const numeroParticula = document.createElement("p");
@@ -551,10 +547,19 @@ async function criarVariasMoedas(quantidade) {
     if (i > 0) await delay(150);
   }
 }
+function variarCriarMoedas(){
+	if (gerenciadorDeSaldo.valorApostado === 50){
+		criarVariasMoedas(5);
+	} else if (gerenciadorDeSaldo.valorApostado === 100){
+		criarVariasMoedas(10);
+	} else if (gerenciadorDeSaldo.valorApostado === 250){
+		criarVariasMoedas(15);
+	} else if (gerenciadorDeSaldo.valorApostado === 500){
+		criarVariasMoedas(25);
+	}
+}
 function animarMoeda(elemento) {
   let posY = -30;
- 
-
   function cair() {
     posY += 5;
     //elemento.style.transform = `translateY(${posY}px)`;
@@ -569,4 +574,57 @@ function animarMoeda(elemento) {
   }
 
   requestAnimationFrame(cair)
+}
+function criarTextoRoleta(array){
+	const roletaTexto = document.createElement("div");
+	let roletaTextoPosY = array.length;
+	roletaTexto.style.top = 83 * roletaTextoPosY + "px";
+	roletaTexto.innerText = "JOGUE";
+	roletaTexto.classList.add("roletaTexto");
+	roleta.divRoleta.appendChild(roletaTexto);
+	array.push(roletaTexto);
+	return roletaTexto;
+}
+function criarVariosTextos(qtd, array){
+	for (let i = 0; i < qtd; i++){
+		criarTextoRoleta(array);
+	}
+}
+function startGlow(qtd = 3, intervalo = 1500) {
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  const roletaTextoArray = [];
+  criarVariosTextos(qtd, roletaTextoArray);
+  const n = roletaTextoArray.length;
+  let i = 0;
+
+  (async function loop() {
+    while (!signal.aborted) {
+      removerClassesTextosRoleta(roletaTextoArray);
+      if (i < n) adicionarClasseTextoRoleta(roletaTextoArray[i]);
+
+      await Promise.race([
+        delay(intervalo),
+        new Promise(resolve => signal.addEventListener('abort', resolve, { once: true }))
+      ]);
+
+      i = (i + 1) % (n + 1);
+    }
+
+    removerClassesTextosRoleta(roletaTextoArray);
+    roletaTextoArray.forEach(el => animarFadein(el));
+    await delay(1000);
+    roletaTextoArray.forEach(el => el.remove());
+  })();
+
+  return controller;
+}
+function removerClassesTextosRoleta(array){
+    array.forEach(elemento => {
+		elemento.classList.remove("roletaTextoGlow");
+	});
+}
+function adicionarClasseTextoRoleta(elemento){
+	elemento.classList.add("roletaTextoGlow");
 }
