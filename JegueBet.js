@@ -29,10 +29,8 @@ const gerenciadorDeSom = {
     },
     async unlockOnce() {
         if (this.unlocked) return;
-        this.plin.currentTime = 0;
-        await this.plin.play();
-        this.win.currentTime = 0;
-        await this.win.play();
+        this.testSound('win',0.0001);
+        this.testSound('plin',0.0001);
         this.unlocked = true;
     },
     async playPlin() {
@@ -460,6 +458,7 @@ async function setarResultado(resultado){
   if (resultado === "ganhou"){
     h1Resultado.innerText = "Você ganhou!";
     gerenciadorDeSom.playWin();
+    piscarNumeros();
     mostrarVinheta("rgba(0,255,0,0.5)");
     pResultado.innerText = "+" + gerenciadorDeSaldo.valorApostado * 2;
     pResultado.style.color = "#49e57dff";
@@ -527,8 +526,7 @@ async function criarBotao(tipo, texto, funcao) {
 
   botao.addEventListener("click",async () => {
     funcao();
-    gerenciadorDeSom.testSound('plin', testVolume = 0.0001);
-    gerenciadorDeSom.testSound('win', testVolume = 0.0001);
+    gerenciadorDeSom.unlockOnce();
     botao.classList.add("hover");
     await delay(100);
     botao.classList.remove("hover");
@@ -667,4 +665,12 @@ function removerClassesTextosRoleta(array){
 }
 function adicionarClasseTextoRoleta(elemento){
 	elemento.classList.add("roletaTextoGlow");
+}
+async function piscarNumeros(){
+	blocosAtivos.forEach(elemento => {
+		elemento.classList.add("piscar");
+		setTimeout(() => {
+		elemento.classList.remove("piscar");
+		}, 5000);
+	})
 }
