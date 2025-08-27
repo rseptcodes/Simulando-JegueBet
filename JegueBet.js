@@ -86,6 +86,9 @@ function criarAreaRoleta(){
   roleta.areaRoleta.appendChild(roleta.divRoleta);
 }
 function criarAreaSaldo(){
+	if (document.querySelector(".areaSaldo")){
+		return;
+	}
   gerenciadorDeSaldo.areaSaldo = document.createElement("div");
   gerenciadorDeSaldo.areaSaldo.classList.add("areaSaldo");
   game.appendChild(gerenciadorDeSaldo.areaSaldo);
@@ -195,6 +198,7 @@ async function gerenciarAreaAposta(){
 });
   animarFadein(gerenciadorDeSaldo.pAreaAposta);
   animarSaidaAreaAposta(gerenciadorDeSaldo.areaAposta);
+  criarAreaSaldo()
     });
 }
 async function animarEntradaAreaAposta(a) {
