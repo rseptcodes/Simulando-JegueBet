@@ -50,16 +50,16 @@ body::after {
 .botaoDiv {
   width: 20vw;
   height: 7vh;
-  top: 80%;
+  bottom: 15%;
   left: 50%;
   position: fixed;
 }
 .botao {
-  font-size: 1.8rem;
-  padding: 10px 20px;
+  font-size: 2.3rem;
+  padding: 20px 40px;
   background-color: #f6b624;
   border: none;
-  border-radius: 20px;
+  border-radius: 30px;
   color: white;
   left: 50%;
   transform: translateX(-50%) translateY(0);
@@ -192,8 +192,8 @@ body::after {
 }
 .divInfo {
   padding: 15px ;
-  width: 310px;
-  height: 550px;
+  width: 85vw;
+  height: 70dvh;
   position: fixed;
   top: 50% ;
   left: 50% ;
@@ -297,6 +297,7 @@ body::after {
   color: white;
   top: 20px;
   font-weight: bold;
+  font-size: 2vh;
 }
 .areaAposta {
   bottom: 5%;
@@ -496,4 +497,17 @@ body::after {
     opacity: 0;
     transform: scale(1);
   }
+}
+
+@keyframes piscarAnimation {
+	from {
+		color: black;
+	} to {
+		color: #f6b624;
+}
+}
+.piscar {
+	animation: piscarAnimation 0.5s;
+	animation-iteration-count: 9;
+	animation-direction: alternate;
 }
