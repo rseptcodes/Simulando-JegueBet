@@ -202,29 +202,30 @@ async function gerenciarAreaAposta(){
     });
 }
 async function animarEntradaAreaAposta(a) {
-	animarSurgir(a);
   a.classList.add("minimizado");
-  a.style.transform = "translateY(350)";
+  a.style.transform = "translateY(350%) translateX(-50%)";
   await delay(150);
-  a.style.transform = "translateY(-30%)";
+  a.style.transform = "translateY(-30%) translateX(-50%)";
   a.offsetHeight;
   await delay(200);
-  a.style.transform = "translateY(0%)";
+  a.style.transform = "translateY(0%) translateX(-50%)";
   await delay(150);
   a.classList.remove("minimizado");
   await delay(900);
   a.style.pointerEvents = "auto";
 }
 async function animarSaidaAreaAposta(a) {
-  a.style.transform = "translateY(0%)";
+  a.style.transform = "translateY(0%) translateX(-50%)";
   await delay(150);
-  a.style.transform = "translateY(-30%)";
+  a.style.transform = "translateY(-30%) translateX(-50%)";
   await delay(200);
-  a.style.transform = "translateY(150%)";
+  a.style.transform = "translateY(150%) translateX(-50%)";
   a.offsetHeight;
   await delay(300);
   a.classList.add("minimizado");
-  await delay(300);
+  await delay(200)
+  a.style.transform = "translateY(350%) translateX(-50%)";
+  await delay(500);
   a.innerHTML = "";
   a.remove();
 }
@@ -333,7 +334,7 @@ function limparFocusRoleta(){
     roleta.overlay.remove();
   }, 2000);
 }
-function focusRoleta() {
+async function focusRoleta() {
   roleta.overlay = document.createElement("div");
   roleta.overlay.classList.add("overlay");
   game.appendChild(roleta.overlay);
@@ -343,21 +344,13 @@ function focusRoleta() {
   game.appendChild(jegue);
   jegue.style.transform = "translate(-50%, 100%)";
 
-  setTimeout(() => {
+  await delay(500);
     jegue.style.transform = "translate(-50%, 25%)";
     roleta.overlay.style.opacity = "1";
-  }, 500);
-
-  setTimeout(() => {
+  await delay(2000);
     jegue.style.transform = "translate(-50%, 500%)";
-  }, 2000);
-
-  setTimeout(() => {
+  await delay(1000);
     jegue.remove();
-    roleta.overlay.style.zIndex = "4";
-  }, 5000);
-  setTimeout(() => {
-  }, 5000);
 }
 function limparRoleta() {
   return new Promise((resolve, reject) => {
