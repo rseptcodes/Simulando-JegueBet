@@ -1,3 +1,4 @@
+/* body */
 html, body {
   margin: 0;
   padding: 0;
@@ -21,22 +22,22 @@ body::after {
   pointer-events: none;
   z-index: 1;
 }
-
 body::before {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
   height: 30vh;
   opacity: 0.7;
   z-index: -9999;
 }
-
 body::after {
   background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
   height: 30vh;
   bottom: 0;
   opacity: 0.7;
   top: auto;
-  z-index: -9999;
+  z-index: -10;
 }
+
+/* header */
 .logo {
 	top: 10px;
 	background: url("JegueBetLogo.png")  no-repeat;
@@ -44,9 +45,18 @@ body::after {
 	width: 150px;
 	height: 60px;
 	background-size: 100% 100%;
-	z-index: 9999;
+	z-index: 2;
+}
+.areaSaldo{
+  position: fixed;
+  right: 20px;
+  color: white;
+  top: 20px;
+  font-weight: bold;
+  font-size: 2vh;
 }
 
+/* botoes */
 .botaoDiv {
   width: 20vw;
   height: 7vh;
@@ -66,13 +76,6 @@ body::after {
   font-weight: bold;
   transition: all 0.2s ease;
 }
-.hover {
-	background-color: #ffde92;
-}
-.botaoI.hover i {
-	background-color: transparent;
-	color: #facb61;
-}
 .botao.botaoI {
 	box-sizing: border-box;
   border-radius: 100%;
@@ -87,223 +90,21 @@ body::after {
   color:#f6b624 ;
 	font-size:2rem;
 }
-.areaRoleta {
-  z-index: 7;
-  display: flex;
-  width: 340px;
-  height: 280px;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 35%;
-  gap: 10px;
-  padding: 10px;
-  background-color: #f6b624;
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2),
-            0 4px 8px rgba(0, 0, 0, 0.15);
+.hover {
+	background-color: #ffde92;
 }
-.areaRoleta::before {
-  content: "";
-  position: absolute;
-  background-color: #f6b624;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 20px;
-  animation: goldShimmer 3s infinite linear;
-  filter: drop-shadow(0 0 5px #FFD700);
-  pointer-events: none;
-  z-index: 1;
-}
-@keyframes goldShimmer {
-  0% {
-    filter: drop-shadow(0 0 5px #FFD700) brightness(1);
-  }
-  50% {
-    filter: drop-shadow(0 0 12px #FFF176) brightness(1.3);
-  }
-  100% {
-    filter: drop-shadow(0 0 5px #FFD700) brightness(1);
-  }
-}
-.areaRoleta::after {
-  content: "";
-  z-index: 8;
-  background: url(Jegue1.png) no-repeat center/contain;
-  position: absolute;
-  width: 400px; /* ou o tamanho que quiser */
-  height: 400px;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 68%;
-  pointer-events: none;
-}
-.divRoleta {
-  box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
-  z-index: 5;
-  left: 50%;
-  background-color: #eee;
-  transform: translateX(-50%);
-  width: 300px;
-  border-radius: 20px;
-  height: 280px;
-  transition: all 0.8s ease;
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Space mono', Monospace;
-}
-.roletaTexto {
-  position: absolute;
-  font-weight: bold;
-  font-size: 5rem;
-  color: #333;
-  transition: all 0.3s ease;
-  user-select: none;
+.botaoI.hover i {
+	background-color: transparent;
+	color: #facb61;
 }
 
-.roletaTextoGlow {
-  color: #f6b624;
-  /** text-shadow: 0 0 8px #f80b0b, 0 0 12px #f80b0b, 0 0 20px #f80b0b; **/
-}
-.bloco-estilo {
-  z-index: 4;
-  transition: transform 0.5s, opacity 0.6s;
-  top: 0px;
-  will-change: transform;
-  padding-left: 45px;
-  width: 50px;
-  height: 100px;
-  color: #111;
-  font-weight: bold;
-  font-size: 4.5rem;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.glass {
-	background: rgba(255,255,255,0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  outline: 1px solid rgba(255, 255, 255, 0.50) ;
-  border-radius: 16px;
-}
-.divInfo {
-  padding: 15px ;
-  width: 85vw;
-  height: 70dvh;
-  position: fixed;
-  top: 50% ;
-  left: 50% ;
-  transform-origin: center center;
-  font-weight: 600 ;
-  font-size: 0.9rem ;
-  color: #222 ;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) ;
-  transition: all 1s ease-in-out ;
-  user-select: text ;
-  line-height: 1.3;
-  display: flex;
-  flex-direction: column ;
-  justify-content: center ;
-  align-items: center ;
-  z-index: 10000 ;
-  text-align: justify;
-}
-.divInfo.minimizado{
-	height: 20px;
-	width: 20px;
-	border-radius: 100%;
-}
-.botaoInfo {
-	all: unset;
-  background-color: #f6b624;
-  height: 30px;
-  color: white;
-  text-align: center;
-  line-height: 1.2rem;
-  font-size: 1.2rem;
-  padding: 5px 10px;
-  border-radius: 20px;
-  position: relative;
-  z-index: 93994;
-}
-.pInfo {
-  margin: 0;
-  padding: 0;
-  font-weight: 500;
-  color: #333;
-}
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  min-height: 100%;
-  min-width: 100%;
-  z-index: 4;
-  transition: all 0.8s ease;
-  backdrop-filter: blur(20px);
-  background-color: rgba(0,0,0,0.591);
-}
-.jegue {
-  background: url(JeguePulando.png) no-repeat center/contain;
-  z-index: 99999;
-  width: 500px;
-  height: 500px;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translate(-50%, 100%);
-  transition: transform 2s ease;
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-}
-
-.jegue::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  z-index: 6;
-}
-
-.divResultado {
-  width: 159px;
-  z-index: 9999;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  position: fixed;
-  top: 5px;
-  left: 27%;
-  transform: translateX(-50%);
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: all 2s ease-in-out;
-}
-
-.h1Resultado {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #000;
-  margin: 0;
-  transition: all 2s ease-in-out;
-}
-.areaSaldo{
-  position: fixed;
-  right: 20px;
-  color: white;
-  top: 20px;
-  font-weight: bold;
-  font-size: 2vh;
-}
+/* area da roleta e apostas */
 .areaAposta {
   bottom: 5%;
-  left: 8%;
-  transform: translateX(-50%);
   height: 110px;
+  
+  left: 50%;
+  transform: translateX(-50%);
   justify-content: center;
   width: 319px;
   line-height: 50px;
@@ -311,7 +112,7 @@ body::after {
   position: fixed;
   font-weight: bold;
   display: flex;
-  z-index: 99999;
+  z-index: 4;
   transition: all 0.8s ease-in-out;
 }
 .areaAposta.minimizado {
@@ -338,10 +139,224 @@ body::after {
   padding: 5px 10px;
   border-radius: 20px;
   position: relative;
-  z-index: 93994;
+  z-index: 4;
 }
 .botaoAposta + .botaoAposta{
   margin-left: 10px;
+}
+
+.areaRoleta {
+  z-index: 2;
+  display: flex;
+  width: 340px;
+  height: 280px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 35%;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f6b624;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2),
+            0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.areaRoleta::before {
+  content: "";
+  position: absolute;
+  background-color: #f6b624;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 20px;
+  animation: goldShimmer 3s infinite linear;
+  filter: drop-shadow(0 0 5px #FFD700);
+  pointer-events: none;
+  z-index: 1;
+}
+.areaRoleta::after {
+  content: "";
+  z-index: 1;
+  background: url(Jegue1.png) no-repeat center/contain;
+  position: absolute;
+  width: 400px; /* ou o tamanho que quiser */
+  height: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 68%;
+  pointer-events: none;
+}
+.divRoleta {
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
+  z-index: 4;
+  left: 50%;
+  background-color: #eee;
+  transform: translateX(-50%);
+  width: 300px;
+  border-radius: 20px;
+  height: 280px;
+  transition: all 0.8s ease;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Space mono', Monospace;
+}
+.roletaTexto {
+  position: absolute;
+  font-weight: bold;
+  font-size: 5rem;
+  color: #333;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+.bloco-estilo {
+  z-index: 4;
+  transition: transform 0.5s, opacity 0.6s;
+  top: 0px;
+  will-change: transform;
+  padding-left: 45px;
+  width: 50px;
+  height: 100px;
+  color: #111;
+  font-weight: bold;
+  font-size: 4.5rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.roletaTextoGlow {
+  color: #f6b624;
+}
+
+/* area informacao */
+.divInfo {
+  padding: 15px ;
+  width: 85vw;
+  height: 70dvh;
+  position: fixed;
+  top: 50% ;
+  left: 50% ;
+  transform-origin: center center;
+  font-weight: 600 ;
+  font-size: 0.9rem ;
+  color: #222 ;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) ;
+  transition: all 1s ease-in-out ;
+  user-select: text ;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column ;
+  justify-content: center ;
+  align-items: center ;
+  z-index: 10 ;
+  text-align: justify;
+}
+.divInfo.minimizado{
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+}
+.botaoInfo {
+	all: unset;
+  background-color: #f6b624;
+  height: 30px;
+  color: white;
+  text-align: center;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 10;
+}
+.pInfo {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: #333;
+}
+
+/* overlays */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  min-height: 100%;
+  min-width: 100%;
+  z-index: 1;
+  transition: all 0.8s ease;
+  backdrop-filter: blur(20px);
+  background-color: rgba(0,0,0,0.591);
+}
+.jegue {
+  background: url(JeguePulando.png) no-repeat center/contain;
+  z-index: 10;
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 100%);
+  transition: transform 2s ease;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+.jegue::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+}
+.piscar {
+	animation: piscarAnimation 0.5s;
+	animation-iteration-count: 9;
+	animation-direction: alternate;
+}
+.moedas {
+	position: fixed;
+	z-index: 15;
+	background: url("MoedaJegueBet.png");
+	background-size: contain;
+	width: 30px;
+	height: 30px;
+	animation: girarMoeda 1s infinite linear;
+  transform-style: preserve-3d;
+}
+.vinheta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(0,0,0,0) 70%, rgba(255,0,0,0.5) 100%);
+  opacity: 0;
+  animation: vinhetaAnim 1s forwards;
+}
+
+/* notfys */
+.divResultado {
+  width: 159px;
+  z-index: 15;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 2s ease-in-out;
+}
+.h1Resultado {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+  transition: all 2s ease-in-out;
 }
 .pResultado {
   font-size: 0.9rem;
@@ -349,16 +364,18 @@ body::after {
   margin: 0;
   transition: all 2s ease-in-out;
 }
-@keyframes shake {
-  0%   { transform: translate(0, 0); }
-  20%  { transform: translate(-5px, 5px); }
-  40%  { transform: translate(5px, -5px); }
-  60%  { transform: translate(-5px, 5px); }
-  80%  { transform: translate(5px, -5px); }
-  100% { transform: translate(0, 0); }
-}
-.shakeTela {
-  animation: shake 1s infinite;
+
+/* animacoes */
+@keyframes goldShimmer {
+  0% {
+    filter: drop-shadow(0 0 5px #FFD700) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px #FFF176) brightness(1.3);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px #FFD700) brightness(1);
+  }
 }
 @keyframes surgir {
   0% {
@@ -386,7 +403,6 @@ body::after {
 .fadein {
   animation: fadein 1s ease forwards;
 }
-
 @keyframes entradaMinimizada{
 	0% {
 		transform:scale(0.1) translateY(1000%) rotate(90deg);
@@ -403,7 +419,6 @@ body::after {
 		opacity: 1;
 	}
 }
-
 .entradaAreaIMinimizada {
 	animation: entradaMinimizada 0.7s ease forwards;
 }
@@ -435,13 +450,12 @@ body::after {
 .sumirAreaI {
 	animation: sumirAreaIMinimizada 2s ease forwards;
 }
-
 @keyframes animarNotfy {
 	from {
-		transform: translateY(-500%) scale(0.4);
+		transform: translateY(-500%) translateX(-50%) scale(0.4);
 	}
 	to {
-		transform: translateY(10%) scale(1.2);
+		transform: translateY(10%) translateX(-50%) scale(1.2);
 	}
 }
 .animarNotfyEntrada {
@@ -450,16 +464,6 @@ body::after {
 .animarNotfySaida {
 	animation: animarNotfy 2s ease forwards;
 	animation-direction: reverse;
-}
-.moedas {
-	position: fixed;
-	z-index: 99999999;
-	background: url("MoedaJegueBet.png");
-	background-size: contain;
-	width: 30px;
-	height: 30px;
-	animation: girarMoeda 1s infinite linear;
-  transform-style: preserve-3d;
 }
 @keyframes girarMoeda {
   0% {
@@ -472,18 +476,6 @@ body::after {
     transform: rotateY(360deg) scaleX(1);
   }
 }
-.vinheta {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(0,0,0,0) 70%, rgba(255,0,0,0.5) 100%);
-  opacity: 0;
-  animation: vinhetaAnim 1s forwards;
-}
-
 @keyframes vinhetaAnim {
   0% {
     opacity: 0;
@@ -498,16 +490,10 @@ body::after {
     transform: scale(1);
   }
 }
-
 @keyframes piscarAnimation {
 	from {
 		color: black;
 	} to {
 		color: #f6b624;
 }
-}
-.piscar {
-	animation: piscarAnimation 0.5s;
-	animation-iteration-count: 9;
-	animation-direction: alternate;
 }
