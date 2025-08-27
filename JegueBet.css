@@ -278,6 +278,13 @@ body::after {
 }
 
 /* overlays */
+.glass {
+	background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: 1px solid rgba(255, 255, 255, 0.50) ;
+  border-radius: 16px;
+}
 .overlay {
   position: fixed;
   top: 0;
