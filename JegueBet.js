@@ -11,7 +11,7 @@ const roleta = {
   areaRoleta: null,
   divRoleta: null,
   velocidade: 7,
-  falsaEsperança: 80,
+  falsaEsperança: 95,
   numeroAtual: null,
   ultimoNumero: null,
   rigged: null,
