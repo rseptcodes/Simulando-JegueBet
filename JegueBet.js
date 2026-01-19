@@ -153,9 +153,7 @@ As imagens usadas foram geradas por inteligência artificial (ChatGPT) e não re
 
 Este site não incentiva ou promove jogos de azar, cassinos ou casas de apostas. O intuito é alertar e educar sobre os riscos e as práticas obscuras que podem existir nesses ambientes.
 
-Qualquer semelhança com sistemas de apostas reais é apenas para fins educacionais e não configura um convite ao jogo ou atividade comercial.
-
-Desenvolvido por @I.rsept`;
+Qualquer semelhança com sistemas de apostas reais é apenas para fins educacionais e não configura um convite ao jogo ou atividade comercial.`;
   divInfo.appendChild(tInfo);
   animarSurgir(tInfo);
 }
